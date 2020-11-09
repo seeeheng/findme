@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
     @Override
     public void onMapReady(GoogleMap googleMap){
         this.map = googleMap;
+        this.map.setMinZoomPreference(18);
+
         user = new User();
     }
 
@@ -141,8 +143,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
             Toast reset_toast = Toast.makeText(getApplicationContext(), "Performing reset...", Toast.LENGTH_SHORT);
             reset_toast.show();
             if(reset_xyz){
-                navisens_sdk.setCartesianPosition(Double.parseDouble(initial_x),Double.parseDouble(initial_y));
-                user.init(Double.parseDouble(initial_y),Double.parseDouble(initial_x));
+                navisens_sdk.setGlobalPosition(Double.parseDouble(initial_x),Double.parseDouble(initial_y));
             }
             if(reset_heading){
                 navisens_sdk.setCartesianHeading(Double.parseDouble(heading));
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
             HashMap<String, Object> configuration = new HashMap<>();
             Log.d("navisens", "model = " + navisensModel);
             configuration.put("model", navisensModel);
-            configuration.put("gps",true);
+            configuration.put("gps",false);
             configuration.put("corrected_trajectory",false);
             configuration.put("callback",40);
             configuration.put("logging",true);
@@ -223,23 +224,21 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
     }
 
     private void mapUser(){
+        LatLng userPosition = new LatLng(user.getCurrentLat(),user.getCurrentLong());
         if (userMarker != null){
-            LatLng userPosition = new LatLng(user.getCurrentLat(),user.getCurrentLong());
-            Log.i("Navisens","Lat: " + user.getCurrentLat() + "Lng: " + user.getCurrentLong());
+            Log.i("navisens","Lat: " + user.getCurrentLat() + "Lng: " + user.getCurrentLong());
             userMarker.setPosition(userPosition);
-            this.map.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
+            userMarker.setRotation((float)user.getCurrentHeading());
         }
         else {
-            LatLng userPosition = new LatLng(user.getCurrentLat(), user.getCurrentLong());
-
             userMarker = this.map.addMarker(new MarkerOptions()
                     .position(userPosition)
                     .anchor(0.5f, 0.5f)
                     .rotation((float)user.getCurrentHeading())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.navigation))
                     .title("User"));
-            this.map.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
         }
+        this.map.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
     }
 
     @Override

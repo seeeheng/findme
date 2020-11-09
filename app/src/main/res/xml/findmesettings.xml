@@ -18,6 +18,10 @@
     <PreferenceCategory
         app:key="navisens_settings"
         app:title="Navisens Initialization Settings">
+        <EditTextPreference
+            app:key="navisensModel"
+            app:title="Navisens Model"
+            app:useSimpleSummaryProvider="true" />
         <SwitchPreferenceCompat
             app:key="resetXYZNavisens"
             app:title="Reset Position"/>
@@ -32,6 +36,18 @@
             android:inputType="numberDecimal"
             app:key="yInitNavisens"
             app:title="Initial Y"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            android:digits="0123456789.:"
+            android:inputType="numberDecimal"
+            app:key="lngInitNavisens"
+            app:title="Initial Longitude"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            android:digits="0123456789.:"
+            android:inputType="numberDecimal"
+            app:key="latInitNavisens"
+            app:title="Initial Latitude"
             app:useSimpleSummaryProvider="true"/>
         <SwitchPreferenceCompat
             app:key="resetHeadingNavisens"
