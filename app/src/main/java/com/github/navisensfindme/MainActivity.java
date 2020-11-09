@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
             reset_toast.show();
             if(reset_xyz){
                 navisens_sdk.setCartesianPosition(Double.parseDouble(initial_x),Double.parseDouble(initial_y));
+                user.init(Double.parseDouble(initial_y),Double.parseDouble(initial_x));
             }
             if(reset_heading){
                 navisens_sdk.setCartesianHeading(Double.parseDouble(heading));
@@ -223,12 +225,19 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
     private void mapUser(){
         if (userMarker != null){
             LatLng userPosition = new LatLng(user.getCurrentLat(),user.getCurrentLong());
+            Log.i("Navisens","Lat: " + user.getCurrentLat() + "Lng: " + user.getCurrentLong());
             userMarker.setPosition(userPosition);
             this.map.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
         }
         else {
             LatLng userPosition = new LatLng(user.getCurrentLat(), user.getCurrentLong());
-            userMarker = this.map.addMarker(new MarkerOptions().position(userPosition).title("User"));
+
+            userMarker = this.map.addMarker(new MarkerOptions()
+                    .position(userPosition)
+                    .anchor(0.5f, 0.5f)
+                    .rotation((float)user.getCurrentHeading())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.navigation))
+                    .title("User"));
             this.map.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
         }
     }
@@ -262,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
             client.sendMessage(NavisensZMQAdapter.pack_data(x,y));
         }
         user.addMetersToDegree(x,y);
+        user.setCurrentHeading(heading);
 
         runOnUiThread(new Runnable() {
             @Override

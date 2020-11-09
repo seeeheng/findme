@@ -9,6 +9,7 @@ public class User {
     private double initialLong;
     private double currentLat;
     private double currentLong;
+    private double currentHeading;
 
     public double getInitialLat() {
         return initialLat;
@@ -40,6 +41,14 @@ public class User {
 
     public void setCurrentLong(double currentLong) {
         this.currentLong = currentLong;
+    }
+
+    public double getCurrentHeading() {
+        return currentHeading;
+    }
+
+    public void setCurrentHeading(double currentHeading) {
+        this.currentHeading = currentHeading;
     }
 
     public void init(double latitude, double longitude){
