@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="mq"
+        app:title="ZeroMQ Settings">
+        <SwitchPreferenceCompat
+            app:key="initZMQ"
+            app:title="Initialize ZeroMQ"/>
+        <EditTextPreference
+            android:digits="0123456789.:"
+            android:inputType="numberDecimal"
+            app:key="ipZMQ"
+            app:title="ZMQ IP"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="navisens_settings"
+        app:title="Navisens Initialization Settings">
+        <SwitchPreferenceCompat
+            app:key="resetXYZNavisens"
+            app:title="Reset Position"/>
+        <EditTextPreference
+            android:digits="0123456789.:"
+            android:inputType="numberDecimal"
+            app:key="xInitNavisens"
+            app:title="Initial X"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            android:digits="0123456789.:"
+            android:inputType="numberDecimal"
+            app:key="yInitNavisens"
+            app:title="Initial Y"
+            app:useSimpleSummaryProvider="true"/>
+        <SwitchPreferenceCompat
+            app:key="resetHeadingNavisens"
+            app:title="Reset Heading"/>
+        <EditTextPreference
+            android:digits="0123456789.:"
+            android:inputType="numberDecimal"
+            app:key="headingInitNavisens"
+            app:title="Initial Heading"
+            app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

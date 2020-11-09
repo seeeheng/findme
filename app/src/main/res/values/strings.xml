@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Navisens Find Me</string>
+    <string name="navisens_info">Navisens not initialized yet.</string>
+    <string name="testButton">Test ZMQ</string>
+    <string name="initButton">Initialize</string>
+    <string name="resetButton">Reset</string>
+    <string name="deinitButton">Stop Navisens</string>
+    <string name="configurationHeaders">Configuration Options:</string>
+    <string name="endpointHint"><font size="14">Endpoint (e.g. ip:port)</font></string>
+    <string name="xHint"><font size="14">x</font></string>
+    <string name="yHint"><font size="14">y</font></string>
+    <string name="headingHint"><font size="14">Heading</font></string>
+    <string name="FindMeSettings">Settings</string>
+
+</resources>
